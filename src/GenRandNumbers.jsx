@@ -8,14 +8,24 @@ export default function GenRandNumbers(props){
     const [number, setNumber] = useState('')
 
     function generateNumber(from, to){
-        if(!from) from = 1
 
-        if(!to) to = 10
-
-        if(Number(from) >= Number(to)) return 'Число "до" должно быть больше числа "от"'
-
-        to = Number(to) + 1
+        to = Number(to)
         from = Number(from)
+
+        if(!from && !to){
+            from = 0
+            to = 10
+        }
+
+        if(from && !to){
+            to = from + 10
+        }
+
+        if(!from && to){
+            from = to - 10
+        }
+
+        if(from >= to) return 'Число "до" должно быть больше числа "от"'
 
         return Math.floor(Math.random() * (to - from + 1)) + from
     }
